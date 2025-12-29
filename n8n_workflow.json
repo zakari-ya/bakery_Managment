@@ -1,0 +1,167 @@
+{
+  "name": "Bakery Scraper Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "webhook",
+        "options": {}
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "my-workflow"
+    },
+    {
+      "parameters": {
+        "url": "https://serpapi.com/search.json",
+        "method": "GET",
+        "responseFormat": "json",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "engine",
+              "value": "google_maps"
+            },
+            {
+              "name": "q",
+              "value": "={{$json.body.businessType}} in {{$json.body.city}}, {{$json.body.country}}"
+            },
+            {
+              "name": "type",
+              "value": "search"
+            },
+            {
+              "name": "api_key",
+              "value": "YOUR_SERPAPI_KEY_HERE"
+            },
+            {
+              "name": "num",
+              "value": "={{$json.body.max_leads || 20}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "SerpApi - Google Maps",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "local_results",
+        "options": {}
+      },
+      "name": "Split Results",
+      "type": "n8n-nodes-base.itemLists",
+      "typeVersion": 1,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "Name",
+              "value": "={{$json[\"title\"]}}"
+            },
+            {
+              "name": "Email",
+              "value": "N/A"
+            },
+            {
+              "name": "Address",
+              "value": "={{$json[\"address\"]}}"
+            },
+            {
+              "name": "Instagram",
+              "value": "N/A"
+            },
+            {
+              "name": "Website",
+              "value": "={{$json[\"website\"]}}"
+            },
+            {
+              "name": "Rating",
+              "value": "={{$json[\"rating\"]}}"
+            },
+            {
+              "name": "Category",
+              "value": "={{$json[\"type\"]}}"
+            },
+            {
+              "name": "Phone",
+              "value": "={{$json[\"phone\"]}}"
+            }
+          ]
+        }
+      },
+      "name": "Format Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "sheetId": "YOUR_GOOGLE_SHEET_ID_HERE",
+        "range": "A:H",
+        "options": {}
+      },
+      "name": "Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 1,
+      "position": [1050, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "SerpApi - Google Maps",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SerpApi - Google Maps": {
+      "main": [
+        [
+          {
+            "node": "Split Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Results": {
+      "main": [
+        [
+          {
+            "node": "Format Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Data": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

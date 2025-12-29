@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bakery Manager</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo" onclick="app.navigate('dashboard')">
+                <i class="fa-solid fa-bread-slice"></i> Artisan<span class="highlight">Bakery</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#" onclick="app.navigate('dashboard')">Home</a></li>
+                <li class="auth-only hidden"><a href="#" onclick="app.navigate('favorites')">My Favorites</a></li>
+                <li class="auth-only hidden"><a href="#" onclick="app.navigate('scraping')">Find More</a></li>
+                <li class="guest-only"><a href="#" class="btn-primary" onclick="app.navigate('login')">Login</a></li>
+                <li class="auth-only hidden"><a href="#" class="btn-outline" onclick="app.logout()">Logout</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Notification Area (Fixed) -->
+    <div id="notification-area"></div>
+
+    <!-- Main Content -->
+    <main class="container">
+
+        <!-- Auth View -->
+        <section id="auth-view" class="view hidden">
+            <div class="auth-container">
+                <div class="auth-box">
+                    <h2 id="auth-title">Welcome Back</h2>
+                    <form id="auth-form">
+                        <div class="input-group" id="username-group" style="display: none;">
+                            <label>Username</label>
+                            <input type="text" id="username" placeholder="John Doe">
+                        </div>
+                        <div class="input-group">
+                            <label>Email</label>
+                            <input type="email" id="email" placeholder="email@example.com" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Password</label>
+                            <input type="password" id="password" placeholder="••••••••" required>
+                        </div>
+                        <button type="submit" class="btn-block" id="auth-submit">Login</button>
+                    </form>
+                    <p class="auth-switch">
+                        <span id="auth-switch-text">Don't have an account?</span>
+                        <a href="#" onclick="app.toggleAuthMode()" id="auth-switch-link">Sign up</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard View -->
+        <section id="dashboard-view" class="view">
+            <div class="dashboard-header">
+                <h1>Discover Best Bakeries</h1>
+                <button class="btn-primary auth-only hidden" onclick="app.navigate('add-bakery')">
+                    <i class="fa-solid fa-plus"></i> Add Bakery
+                </button>
+            </div>
+
+            <div class="filters">
+                <div class="search-box">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" id="search-input" placeholder="Search by name, city, specialty...">
+                </div>
+                <select id="status-filter">
+                    <option value="">All Status</option>
+                    <option value="open">Open</option>
+                    <option value="closed">Closed</option>
+                </select>
+            </div>
+
+            <div id="bakery-grid" class="grid">
+                <!-- Bakeries injected here -->
+            </div>
+
+            <div class="pagination">
+                <button onclick="app.prevPage()" id="prev-btn">Previous</button>
+                <span id="page-info">Page 1</span>
+                <button onclick="app.nextPage()" id="next-btn">Next</button>
+            </div>
+        </section>
+
+        <!-- Add/Edit Bakery View -->
+        <section id="item-form-view" class="view hidden">
+            <div class="form-container">
+                <h2 id="form-title">Add New Bakery</h2>
+                <form id="bakery-form">
+                    <input type="hidden" id="bakery-id">
+                    <div class="input-group">
+                        <label>Name</label>
+                        <input type="text" id="bakery-name" required>
+                    </div>
+                    <div class="input-group">
+                        <label>City</label>
+                        <input type="text" id="bakery-city" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Specialties</label>
+                        <input type="text" id="bakery-specialties" placeholder="Croissant, Baguette...">
+                    </div>
+                    <div class="row">
+                        <div class="input-group">
+                            <label>Avg Price ($)</label>
+                            <input type="number" id="bakery-price" step="0.01">
+                        </div>
+                        <div class="input-group">
+                            <label>Status</label>
+                            <select id="bakery-status">
+                                <option value="open">Open</option>
+                                <option value="closed">Closed</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Image URL</label>
+                        <input type="url" id="bakery-image" placeholder="https://example.com/image.jpg">
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-outline" onclick="app.navigate('dashboard')">Cancel</button>
+                        <button type="submit" class="btn-primary">Save Bakery</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Scraping View -->
+        <section id="scraping-view" class="view hidden">
+            <div class="form-container">
+                <h2 id="scraping-title">Find New Leads</h2>
+                <form id="scraping-form">
+                    <div class="row">
+                        <div class="input-group">
+                            <label>Business Type</label>
+                            <input type="text" id="scrap-type" placeholder="e.g. Bakery, Cafe" required>
+                        </div>
+                        <div class="input-group">
+                            <label>City</label>
+                            <input type="text" id="scrap-city" placeholder="e.g. Paris" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group">
+                            <label>Country</label>
+                            <input type="text" id="scrap-country" placeholder="e.g. France" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Max Leads</label>
+                            <input type="number" id="scrap-max" value="10" min="1" max="100">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-outline" onclick="app.navigate('dashboard')">Cancel</button>
+                        <button type="submit" class="btn-primary" id="btn-scrape">
+                            <i class="fa-solid fa-robot"></i> Start Scraping
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Favorites View -->
+        <section id="favorites-view" class="view hidden">
+            <h2>My Favorite Places</h2>
+            <div id="favorites-grid" class="grid">
+                <!-- Favorites injected here -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <h3><i class="fa-solid fa-check-circle"></i> Scraping Successful!</h3>
+            <p>Your leads have been added to the Google Sheet.</p>
+            <div class="modal-actions">
+                <a href="#" id="open-sheet-btn" class="btn-primary" target="_blank" style="text-decoration: none;">
+                    <i class="fa-solid fa-table"></i> Open Google Sheet
+                </a>
+                <button class="btn-outline" onclick="app.closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>
