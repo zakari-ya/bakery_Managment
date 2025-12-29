@@ -6,6 +6,7 @@ const app = {
     currentView: "dashboard",
     isLoginMode: true,
     bakeries: [],
+    favorites: [], // Store favorite bakery IDs
     page: 1,
     limit: 6,
   },
@@ -29,6 +30,10 @@ const app = {
     }
 
     app.updateUI();
+    // Load favorites if user is logged in
+    if (app.state.user) {
+      await app.loadFavorites();
+    }
     app.navigate("dashboard");
 
     // Event Listeners
@@ -196,7 +201,23 @@ const app = {
     }
   },
 
+  loadFavorites: async () => {
+    try {
+      const res = await fetch(`${app.apiBase}/favorites/my-favorites`, {
+        headers: { Authorization: `Bearer ${app.state.token}` },
+      });
+      const data = await res.json();
+      if (data.success) {
+        // Store favorite IDs in state
+        app.state.favorites = data.data.map((item) => item.id);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  },
+
   fetchFavorites: async () => {
+    await app.loadFavorites();
     try {
       const res = await fetch(`${app.apiBase}/favorites/my-favorites`, {
         headers: { Authorization: `Bearer ${app.state.token}` },
@@ -229,7 +250,9 @@ const app = {
                   "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&auto=format&fit=crop"
                 }" class="card-img" alt="${item.name}">
                 <button class="fav-btn ${
-                  isFavView ? "active" : ""
+                  isFavView || app.state.favorites.includes(item.id)
+                    ? "active"
+                    : ""
                 }" onclick="app.toggleFavorite('${item.id}')">
                     <i class="fa-solid fa-heart"></i>
                 </button>
@@ -288,6 +311,10 @@ const app = {
 
       if (data.success) {
         app.notify("Success", "Added to favorites");
+        // Add to local state
+        app.state.favorites.push(itemId);
+        // Update UI immediately on dashboard
+        if (app.state.currentView === "dashboard") app.fetchBakeries();
       } else if (data.message === "Already a favorite") {
         // Remove
         const del = await fetch(`${app.apiBase}/favorites/${itemId}`, {
@@ -297,7 +324,16 @@ const app = {
         const delData = await del.json();
         if (delData.success) {
           app.notify("Success", "Removed from favorites");
-          if (app.state.currentView === "favorites") app.fetchFavorites();
+          // Remove from local state
+          app.state.favorites = app.state.favorites.filter(
+            (id) => id !== itemId
+          );
+          // Update UI
+          if (app.state.currentView === "favorites") {
+            app.fetchFavorites();
+          } else if (app.state.currentView === "dashboard") {
+            app.fetchBakeries();
+          }
         }
       }
     } catch (err) {
