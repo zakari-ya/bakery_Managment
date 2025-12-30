@@ -24,11 +24,15 @@
                 <i class="fa-solid fa-bread-slice"></i> Artisan<span class="highlight">Bakery</span>
             </a>
             <ul class="nav-links">
-                <li><a href="#" onclick="app.navigate('dashboard')">Home</a></li>
-                <li class="auth-only hidden"><a href="#" onclick="app.navigate('favorites')">My Favorites</a></li>
-                <li class="auth-only hidden"><a href="#" onclick="app.navigate('scraping')">Find More</a></li>
-                <li class="guest-only"><a href="#" class="btn-primary" onclick="app.navigate('login')">Login</a></li>
-                <li class="auth-only hidden"><a href="#" class="btn-outline" onclick="app.logout()">Logout</a></li>
+                <li><a href="#" onclick="app.navigate('dashboard'); closeMobileMenu()">Home</a></li>
+                <li class="auth-only hidden"><a href="#" onclick="app.navigate('favorites'); closeMobileMenu()">My
+                        Favorites</a></li>
+                <li class="auth-only hidden"><a href="#" onclick="app.navigate('scraping'); closeMobileMenu()">Find
+                        More</a></li>
+                <li class="guest-only"><a href="#" class="btn-primary"
+                        onclick="app.navigate('login'); closeMobileMenu()">Login</a></li>
+                <li class="auth-only hidden"><a href="#" class="btn-outline"
+                        onclick="app.logout(); closeMobileMenu()">Logout</a></li>
             </ul>
             <div class="hamburger" onclick="toggleMenu()">
                 <i class="fa-solid fa-bars"></i>

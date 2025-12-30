@@ -566,5 +566,26 @@ window.toggleMenu = () => {
   navLinks.classList.toggle("active");
 };
 
+// Close mobile menu when clicking on any link
+window.closeMobileMenu = () => {
+  const navLinks = document.querySelector(".nav-links");
+  if (navLinks.classList.contains("active")) {
+    navLinks.classList.remove("active");
+  }
+};
+
+// Close menu when clicking outside
+document.addEventListener("click", (e) => {
+  const navLinks = document.querySelector(".nav-links");
+  const hamburger = document.querySelector(".hamburger");
+
+  // Check if menu is open and click is outside nav-links and hamburger
+  if (navLinks && navLinks.classList.contains("active")) {
+    if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+      navLinks.classList.remove("active");
+    }
+  }
+});
+
 // Start
 document.addEventListener("DOMContentLoaded", app.init);
