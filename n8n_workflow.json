@@ -10,9 +10,12 @@
       "name": "Webhook",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
-      "position": [1000, 300],
+      "position": [
+        2512,
+        480
+      ],
       "webhookId": "my-workflow",
-      "id": "33e8e3a5-a102-4e50-872d-cea96ff17761"
+      "id": "c534ff8d-6d3e-4bff-a288-d0ce8127e95f"
     },
     {
       "parameters": {
@@ -34,7 +37,7 @@
             },
             {
               "name": "api_key",
-              "value": "YOUR_SERPAPI_KEY_HERE"
+              "value": "276ae97465afb0be268260b855128648b1b6e0d991832867ead8fe0abeedde74"
             },
             {
               "name": "num",
@@ -47,21 +50,33 @@
       "name": "SerpApi - Google Maps",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 3,
-      "position": [1200, 300],
-      "id": "bd7f9d22-7344-4a4c-92fe-50da35cd8588"
+      "position": [
+        2720,
+        480
+      ],
+      "id": "e9c68178-eb58-4599-8973-be0123b9cd07"
     },
     {
       "parameters": {
+        "authentication": "oAuth2",
         "operation": "clear",
-        "sheetId": "YOUR_GOOGLE_SHEET_ID_HERE",
-        "range": "A2:Z",
-        "options": {}
+        "sheetId": "1UJMpuMOlUHp1COWJsYyvBUlbNEec2yzfo_k39Q-1cnk",
+        "range": "A2:Z"
       },
       "name": "Clear Sheet",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 1,
-      "position": [1400, 300],
-      "id": "clear-sheet-node"
+      "position": [
+        2912,
+        480
+      ],
+      "id": "9a76d200-1b5d-41af-863a-9efdcd750e40",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "tLXcVnYpgrvZvXew",
+          "name": "Google Sheets account 2"
+        }
+      }
     },
     {
       "parameters": {
@@ -71,8 +86,11 @@
       "name": "Split Results",
       "type": "n8n-nodes-base.itemLists",
       "typeVersion": 1,
-      "position": [1600, 300],
-      "id": "4c7f7cb6-82ad-4aac-9d54-00093231debc"
+      "position": [
+        3120,
+        480
+      ],
+      "id": "2b3886c6-bb23-475a-8931-03657c9e2c6e"
     },
     {
       "parameters": {
@@ -81,8 +99,11 @@
       "name": "Limit",
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
-      "position": [1800, 300],
-      "id": "limit-node"
+      "position": [
+        3312,
+        480
+      ],
+      "id": "b3de2cd2-9033-4132-9e81-03f7fc1c89b1"
     },
     {
       "parameters": {
@@ -128,21 +149,28 @@
       "name": "Format Data",
       "type": "n8n-nodes-base.set",
       "typeVersion": 1,
-      "position": [2000, 300],
-      "id": "dff8ffcc-13a7-4f02-8622-5ca1ff899f3f"
+      "position": [
+        3520,
+        480
+      ],
+      "id": "68c614d6-2e1b-4358-81e4-2e71dce44249"
     },
     {
       "parameters": {
+        "authentication": "oAuth2",
         "operation": "append",
-        "sheetId": "YOUR_GOOGLE_SHEET_ID_HERE",
+        "sheetId": "1UJMpuMOlUHp1COWJsYyvBUlbNEec2yzfo_k39Q-1cnk",
         "range": "A:H",
         "options": {}
       },
       "name": "Google Sheets",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 1,
-      "position": [2200, 300],
-      "id": "aac87a7b-42cf-41c6-aff1-0e958ce7cdc4",
+      "position": [
+        3712,
+        480
+      ],
+      "id": "c728473c-7e11-421b-a14d-cf8f97226460",
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "tLXcVnYpgrvZvXew",
@@ -152,7 +180,6 @@
     },
     {
       "parameters": {
-        "operation": "create",
         "tableId": "scraped_leads",
         "fieldsUi": {
           "fieldValues": [
@@ -173,7 +200,7 @@
               "fieldValue": "={{$json[\"Instagram\"]}}"
             },
             {
-              "fieldId": "website",
+              "fieldId": "Website",
               "fieldValue": "={{$json[\"Website\"]}}"
             },
             {
@@ -194,8 +221,11 @@
       "name": "Supabase",
       "type": "n8n-nodes-base.supabase",
       "typeVersion": 1,
-      "position": [2400, 300],
-      "id": "5c9197de-1319-4bc1-862b-ffdb4d8be0f0",
+      "position": [
+        3712,
+        704
+      ],
+      "id": "1b9d7e5b-a4da-4f54-ae87-b432338b8f1d",
       "credentials": {
         "supabaseApi": {
           "id": "BJRQCP4x86M9U2aa",
@@ -204,6 +234,7 @@
       }
     }
   ],
+  "pinData": {},
   "connections": {
     "Webhook": {
       "main": [
@@ -267,13 +298,7 @@
             "node": "Google Sheets",
             "type": "main",
             "index": 0
-          }
-        ]
-      ]
-    },
-    "Google Sheets": {
-      "main": [
-        [
+          },
           {
             "node": "Supabase",
             "type": "main",
@@ -281,6 +306,22 @@
           }
         ]
       ]
+    },
+    "Google Sheets": {
+      "main": [
+        []
+      ]
     }
-  }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "7852668b-4797-4a94-9bf2-4c1498c5c122",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6fba02c56f732391825a81b0d3eb33212632413b406e8a0f3fe5b1cfa7369a99"
+  },
+  "id": "tlhrcfLGU19FsepO",
+  "tags": []
 }
