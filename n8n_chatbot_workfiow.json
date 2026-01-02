@@ -20,7 +20,8 @@
     },
     {
       "parameters": {
-        "respondWith": "allIncomingItems",
+        "respondWith": "text",
+        "responseBody": "={{ $json.rawText }}",
         "options": {}
       },
       "id": "efdbee7e-f7b4-45f0-985f-57fb3c387330",
@@ -35,7 +36,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "={{ $json.body.message }} ",
+        "text": "={{ $json.body.message }}",
         "options": {
           "systemMessage": "You are a helpful assistant for a bakery management application."
         }
@@ -118,7 +119,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Get the output from AI Agent\nconst aiOutput = $input.first().json.output;\n\n// Clean with smart formatting\nconst cleanedOutput = aiOutput\n  // First, unescape everything\n  .replace(/\\\\n/g, '\\n')\n  .replace(/\\\\t/g, '  ')\n  .replace(/\\\\\"/g, '\"')\n  .replace(/\\\\'/g, \"'\")\n  .replace(/\\\\\\\\/g, '\\\\')\n  \n  // Fix common formatting issues\n  .replace(/\\*\\*(.*?)\\*\\*/g, '$1')      // Remove bold but keep text\n  .replace(/\\*(.*?)\\*/g, '$1')          // Remove italic but keep text\n  \n  // Clean up spacing\n  .replace(/\\s*\\n\\s*/g, '\\n')          // Remove spaces around newlines\n  .replace(/\\n{3,}/g, '\\n\\n')          // Limit consecutive newlines to 2\n  \n  // Ensure proper spacing after punctuation\n  .replace(/([.!?])\\s*\\n/g, '$1\\n\\n')  // Add extra line after sentences\n  .replace(/([a-z])\\n([A-Z])/g, '$1 $2') // Fix sentences broken by newline\n  \n  // Final cleanup\n  .trim();\n\n// Return the cleaned output\nreturn [{\n  json: {\n    output: cleanedOutput,\n    originalOutput: aiOutput\n  }\n}];"
+        "jsCode": "// Get the output from AI Agent\nconst aiOutput = $input.first().json.output;\n\n// Clean with smart formatting\nconst cleanedOutput = aiOutput\n  // First, unescape everything\n  .replace(/\\\\n/g, '\\n')\n  .replace(/\\\\t/g, '  ')\n  .replace(/\\\\\"/g, '\"')\n  .replace(/\\\\'/g, \"'\")\n  .replace(/\\\\\\\\/g, '\\\\')\n  \n  // Fix common formatting issues\n  .replace(/\\*\\*(.*?)\\*\\*/g, '$1')      // Remove bold but keep text\n  .replace(/\\*(.*?)\\*/g, '$1')          // Remove italic but keep text\n  \n  // Clean up spacing\n  .replace(/\\s*\\n\\s*/g, '\\n')          // Remove spaces around newlines\n  .replace(/\\n{3,}/g, '\\n\\n')          // Limit consecutive newlines to 2\n  \n  // Ensure proper spacing after punctuation\n  .replace(/([.!?])\\s*\\n/g, '$1\\n\\n')  // Add extra line after sentences\n  .replace(/([a-z])\\n([A-Z])/g, '$1 $2') // Fix sentences broken by newline\n  \n  // Final cleanup\n  .trim();\n\n// ⭐ RETURN PLAIN TEXT (NOT JSON OBJECT)\nreturn [{\n  json: {\n    // This field will be used by the next node\n    rawText: cleanedOutput\n  }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -203,7 +204,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "389cac76-89f0-49d1-824b-0f9b7514c704",
+  "versionId": "923dc5ab-471d-4165-b180-86f5a53142a9",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "6fba02c56f732391825a81b0d3eb33212632413b406e8a0f3fe5b1cfa7369a99"
