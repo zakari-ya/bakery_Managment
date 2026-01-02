@@ -1,6 +1,6 @@
 const chatWidget = {
   isOpen: false,
-  webhookUrl: "https://n8n.zackdev.io/webhook/chat ",
+  webhookUrl: "https://n8n.zackdev.io/webhook/chat",
   sessionId:
     localStorage.getItem("chat_session_id") ||
     "session-" + Math.random().toString(36).substr(2, 9),
@@ -15,7 +15,6 @@ const chatWidget = {
 
     // Render Chat UI
     // Added 'auth-only' class to integration with app.js auth system
-    // Added style="display: ${isLoggedIn ? 'block' : 'none'}" to handle initial state race condition
     const chatHTML = `
             <div id="chat-widget" class="chat-widget auth-only ${
               isLoggedIn ? "" : "hidden"

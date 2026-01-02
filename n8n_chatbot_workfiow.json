@@ -52,29 +52,6 @@
     },
     {
       "parameters": {
-        "model": "deepseek/deepseek-chat-v3.1",
-        "options": {
-          "baseURL": "https://openrouter.ai/api/v1",
-          "temperature": 0.7
-        }
-      },
-      "id": "390a866a-7d1d-4193-8aa0-bedea7d13871",
-      "name": "DeepSeek (OpenRouter)",
-      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
-      "typeVersion": 1,
-      "position": [
-        3568,
-        1120
-      ],
-      "credentials": {
-        "openAiApi": {
-          "id": "DciSqAXZtkdIQkmx",
-          "name": "OpenAi account 3"
-        }
-      }
-    },
-    {
-      "parameters": {
         "sessionIdType": "customKey",
         "sessionKey": "={{ $json.body.sessionId }}"
       },
@@ -129,6 +106,29 @@
       ],
       "id": "10113c23-fdf6-4f0f-9f22-e3763faa5b21",
       "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "model": "tngtech/deepseek-r1t2-chimera:free",
+        "options": {
+          "baseURL": "https://openrouter.ai/api/v1",
+          "temperature": 0.7
+        }
+      },
+      "id": "390a866a-7d1d-4193-8aa0-bedea7d13871",
+      "name": "kimi (OpenRouter)",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        3568,
+        1120
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "iYi8eh9Sjo20hWjM",
+          "name": "OpenAi account 3"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -150,17 +150,6 @@
           {
             "node": "Code in JavaScript",
             "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "DeepSeek (OpenRouter)": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_languageModel",
             "index": 0
           }
         ]
@@ -198,13 +187,24 @@
           }
         ]
       ]
+    },
+    "kimi (OpenRouter)": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "923dc5ab-471d-4165-b180-86f5a53142a9",
+  "versionId": "18d7b5a3-adca-4079-b780-1a0be1e23d2e",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "6fba02c56f732391825a81b0d3eb33212632413b406e8a0f3fe5b1cfa7369a99"
