@@ -12,6 +12,7 @@
     --glass: rgba(18, 18, 18, 0.85);
     /* Darker frost */
     --gold-glow: 0 0 15px rgba(217, 119, 6, 0.4);
+    height: 1vh;
 }
 
 * {
