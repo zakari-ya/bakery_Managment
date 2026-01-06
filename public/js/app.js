@@ -271,9 +271,9 @@ const app = {
                       item.city
                     } • ${item.specialties || "General"}</p>
                     <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <span style="font-weight:bold;">$${
+                        <span style="font-weight:bold;">${
                           item.average_price || "N/A"
-                        }</span>
+                        } DH</span>
                         ${
                           app.state.user &&
                           item.created_by === app.state.user.id

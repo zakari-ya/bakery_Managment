@@ -12,10 +12,7 @@
       "name": "Webhook",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
-      "position": [
-        3280,
-        896
-      ],
+      "position": [3280, 896],
       "webhookId": "chat-webhook-id"
     },
     {
@@ -28,27 +25,21 @@
       "name": "Respond to Webhook",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
-      "position": [
-        4256,
-        896
-      ]
+      "position": [4256, 896]
     },
     {
       "parameters": {
         "promptType": "define",
         "text": "={{ $json.body.message }}",
         "options": {
-          "systemMessage": "You are a helpful assistant for a bakery management application."
+          "systemMessage": "You are the smart and friendly AI assistant for 'ArtisanBakery', the best platform for finding local bakeries.\n\n### 🧠 YOUR BRAIN (RULES)\n\n1.  **CITY SEARCH INTELLIGENCE**:\n    -   Users use slang! If a user says \"Kech\" or \"Kech mara\", they mean **\"Marrakech\"**.\n    -   If they say \"Casa\", they mean **\"Casablanca\"**.\n    -   **ALWAYS** convert the city to its full official name before using the `search_bakeries` tool.\n    -   *Example*: User: \"bakeries in kech?\" -> Tool Call: `search_bakeries(\"Marrakech\")`\n\n2.  **PROMOTIONS FLOW (Strict)**:\n    -   If a user mentions \"updates\", \"promos\", \"new year\", or \"offers\":\n    -   **STEP 1**:  Ask: \"Great! I'd love to send you the best deals. What is your phone number?\"\n    -   **STEP 2**:  WAIT for the user to reply.\n    -   **STEP 3**:  ONLY when you get a number, call `save_promotion_contact(phone_number)`.\n    -   **STEP 4**:  Confirm: \"Thanks! You're on the list.\"\n\n3.  **NO HALLUCINATIONS**:\n    -   You DO NOT know any bakeries outside your database.\n    -   If `search_bakeries` returns simple empty [], tell the user specifically: \"I couldn't find any bakeries in [City] yet. Any other city you'd like to check?\"\n\n4.  **LANGUAGE & TONE**:\n    -   **Match the User's Language**: If they speak French, reply in French. If they speak Darija/Arabic, reply in a mix of English/Darija or French/Darija as appropriate, or just polite English if unsure.\n    -   Be enthusiastic about bread and pastries! 🥐🥖"
         }
       },
       "id": "bf3ea7e7-50f4-46c2-b0d4-c1bf663b0643",
       "name": "AI Agent",
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.6,
-      "position": [
-        3600,
-        896
-      ]
+      "position": [3600, 896]
     },
     {
       "parameters": {
@@ -59,10 +50,7 @@
       "name": "Window Buffer Memory",
       "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
       "typeVersion": 1.2,
-      "position": [
-        3712,
-        1120
-      ]
+      "position": [3712, 1120]
     },
     {
       "parameters": {
@@ -75,10 +63,7 @@
       "name": "API Key Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        3200,
-        1104
-      ]
+      "position": [3200, 1104]
     },
     {
       "parameters": {
@@ -86,10 +71,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.4,
-      "position": [
-        3264,
-        688
-      ],
+      "position": [3264, 688],
       "id": "7996822b-7cd2-4b25-93c3-77c4a39cc1d7",
       "name": "When chat message received",
       "webhookId": "46ce8705-ae24-4209-b2d6-3b99a97f47d0"
@@ -100,16 +82,13 @@
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [
-        3952,
-        896
-      ],
+      "position": [3952, 896],
       "id": "10113c23-fdf6-4f0f-9f22-e3763faa5b21",
       "name": "Code in JavaScript"
     },
     {
       "parameters": {
-        "model": "tngtech/deepseek-r1t2-chimera:free",
+        "model": "deepseek/deepseek-chat",
         "options": {
           "baseURL": "https://openrouter.ai/api/v1",
           "temperature": 0.7
@@ -119,14 +98,66 @@
       "name": "kimi (OpenRouter)",
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1,
-      "position": [
-        3568,
-        1120
-      ],
+      "position": [3552, 1120],
       "credentials": {
         "openAiApi": {
           "id": "iYi8eh9Sjo20hWjM",
           "name": "OpenAi account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Search for bakeries in a specific city. Input should be the city name.",
+        "operation": "getAll",
+        "tableId": "bakeries",
+        "limit": 5,
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "city",
+              "condition": "like",
+              "keyValue": "'*' || $1 || '*'"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabaseTool",
+      "typeVersion": 1,
+      "position": [3984, 1104],
+      "id": "d83b2ec4-4489-4132-b91e-920b97b9b13d",
+      "name": "search_bakeries",
+      "credentials": {
+        "supabaseApi": {
+          "id": "BJRQCP4x86M9U2aa",
+          "name": "Supabase account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Save a user's phone number for promotion updates.",
+        "tableId": "promotion_subscribers",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "phone_number",
+              "fieldValue": "($1)"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabaseTool",
+      "typeVersion": 1,
+      "position": [3856, 1120],
+      "id": "033cab0f-1d7a-4d0c-9f53-87bb4b03a4d0",
+      "name": "save_promotion_contact",
+      "credentials": {
+        "supabaseApi": {
+          "id": "BJRQCP4x86M9U2aa",
+          "name": "Supabase account 4"
         }
       }
     }
@@ -198,13 +229,35 @@
           }
         ]
       ]
+    },
+    "search_bakeries": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "save_promotion_contact": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "18d7b5a3-adca-4079-b780-1a0be1e23d2e",
+  "versionId": "550d2f2f-b521-40d1-b9b4-9aee5dcec746",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "6fba02c56f732391825a81b0d3eb33212632413b406e8a0f3fe5b1cfa7369a99"

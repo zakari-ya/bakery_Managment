@@ -229,7 +229,7 @@ body {
     padding: 24px;
     position: relative;
     z-index: 2;
-    background: linear-gradient(to bottom, transparent, rgba(18, 18, 18, 0.8));
+    
 }
 
 .card h3 {
