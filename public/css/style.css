@@ -871,7 +871,9 @@ body {
 
 #favorites-view {
     margin-top: 12px;
-    height: 90vh;
+    min-height: 60vh;
+    /* Changed from height: 90vh to allow growth */
+    padding-bottom: 20px;
 }
 
 /* --- Footer Refactor Styles --- */
