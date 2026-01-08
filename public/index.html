@@ -81,7 +81,7 @@
     <div id="notification-area"></div>
 
     <!-- Main Content -->
-    <main class="container flex-grow">
+    <main class="container flex-grow" style="min-height: 90vh;">
 
         <!-- Auth View -->
         <section id="auth-view" class="view hidden">
@@ -120,7 +120,7 @@
             </div>
 
             <div class="dashboard-header">
-                <h2>Discover Best Bakeries</h2>
+                <h2 style="margin-bottom: 12px;">Discover Best Bakeries</h2>
                 <button class="btn-primary auth-only hidden" onclick="app.navigate('add-bakery')">
                     <i class="fa-solid fa-plus"></i> Add Bakery
                 </button>
@@ -131,7 +131,7 @@
                     <i class="fa-solid fa-search"></i>
                     <input type="text" id="search-input" placeholder="Search by name, city, specialty...">
                 </div>
-                <select id="status-filter">
+                <select id="status-filter" aria-label="Filter by status">
                     <option value="">All Status</option>
                     <option value="open">Open</option>
                     <option value="closed">Closed</option>
@@ -312,13 +312,13 @@
                     <div class="footer-social-section">
                         <p class="social-label">Follow us on social media</p>
                         <div class="social-buttons">
-                            <a href="#" class="social-btn">
+                            <a href="#" class="social-btn" aria-label="Facebook">
                                 <i class="fa-brands fa-facebook-f"></i>
                             </a>
-                            <a href="#" class="social-btn">
+                            <a href="#" class="social-btn" aria-label="Instagram">
                                 <i class="fa-brands fa-instagram"></i>
                             </a>
-                            <a href="#" class="social-btn">
+                            <a href="#" class="social-btn" aria-label="Twitter">
                                 <i class="fa-brands fa-twitter"></i>
                             </a>
                         </div>

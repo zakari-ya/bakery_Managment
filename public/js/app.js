@@ -254,7 +254,9 @@ const app = {
                   isFavView || app.state.favorites.includes(item.id)
                     ? "active"
                     : ""
-                }" onclick="app.toggleFavorite('${item.id}')">
+                }" onclick="app.toggleFavorite('${
+        item.id
+      }')" aria-label="Toggle favorite">
                     <i class="fa-solid fa-heart"></i>
                 </button>
                 <div class="card-body">

@@ -58,7 +58,8 @@ body {
 
 .btn-primary {
     background: var(--primary);
-    color: white;
+    color: #121212;
+    /* Dark text for a11y contrast (was white) */
     box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
 }
 
@@ -199,7 +200,7 @@ body {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 25px;
     margin-top: 30px;
-    min-height: 600px;
+    
     /* Reduced CLS for grid */
 }
 
@@ -864,6 +865,7 @@ body {
 
 #favorites-view {
     margin-top: 12px;
+    height: 90vh;
 }
 
 /* --- Footer Refactor Styles --- */
