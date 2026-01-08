@@ -27,9 +27,15 @@
     <link rel="canonical" href="https://bakery-manager.vercel.app/">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="favicon.png">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Fonts: Preload Critical Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
@@ -38,7 +44,7 @@
 
 <!-- web analitique  -->
 <script>
-    !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init ts ns yi rs os Qr es capture Hi calculateEventProperties hs register register_once register_for_session unregister unregister_for_session fs getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty vs us createPersonProfile cs Yr ps opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing ls debug O ds getPageViewId captureTraceFeedback captureTraceMetric Vr".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    !function (t, e) { var o, n, p, r; e.__SV || (window.posthog && window.posthog.__loaded) || (window.posthog = e, e._i = [], e.init = function (i, s, a) { function g(t, e) { var o = e.split("."); 2 == o.length && (t = t[o[0]], e = o[1]), t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))) } } (p = t.createElement("script")).type = "text/javascript", p.crossOrigin = "anonymous", p.async = !0, p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js", (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(p, r); var u = e; for (void 0 !== a ? u = e[a] = [] : a = "posthog", u.people = u.people || [], u.toString = function (t) { var e = "posthog"; return "posthog" !== a && (e += "." + a), t || (e += " (stub)"), e }, u.people.toString = function () { return u.toString(1) + ".people (stub)" }, o = "init ts ns yi rs os Qr es capture Hi calculateEventProperties hs register register_once register_for_session unregister unregister_for_session fs getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty vs us createPersonProfile cs Yr ps opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing ls debug O ds getPageViewId captureTraceFeedback captureTraceMetric Vr".split(" "), n = 0; n < o.length; n++)g(u, o[n]); e._i.push([i, s, a]) }, e.__SV = 1) }(document, window.posthog || []);
     posthog.init('phc_Q6AGz6yh0sEIBfNVzwqWXPWNB0CHyewiPYHa7eaendB', {
         api_host: 'https://us.i.posthog.com',
         defaults: '2025-11-30',
@@ -46,7 +52,7 @@
     })
 </script>
 
-<body>
+<body class="flex flex-col min-h-screen">
 
     <!-- Navigation -->
     <nav class="navbar">
@@ -75,7 +81,7 @@
     <div id="notification-area"></div>
 
     <!-- Main Content -->
-    <main class="container">
+    <main class="container flex-grow">
 
         <!-- Auth View -->
         <section id="auth-view" class="view hidden">
@@ -230,6 +236,111 @@
         </section>
 
     </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <!-- Background Decor -->
+        <div class="footer-decor-line"></div>
+
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- 1. Brand Section -->
+                <div class="footer-brand">
+                    <a href="#" class="footer-brand-link" onclick="app.navigate('dashboard')">
+                        <div class="brand-logo-box">
+                            <i class="fa-solid fa-bread-slice"></i>
+                        </div>
+                        <span>Artisan<span class="brand-text-highlight">Bakery</span></span>
+                    </a>
+                    <p class="footer-description">
+                        Connecting foodies with the finest local artisans. Taste the difference of fresh, handcrafted
+                        baking.
+                    </p>
+                </div>
+
+                <!-- 2. Navigation -->
+                <div class="footer-column">
+                    <h3 class="footer-col-heading">
+                        <span class="heading-decoration"></span>Explore
+                    </h3>
+                    <ul class="footer-link-list">
+                        <li><a href="#" onclick="app.navigate('dashboard')" class="footer-link">Home</a></li>
+                        <li class="auth-only"><a href="#" onclick="app.navigate('favorites')" class="footer-link">My
+                                Favorites</a></li>
+                        <li class="auth-only"><a href="#" onclick="app.navigate('scraping')" class="footer-link">Find
+                                New Places</a></li>
+                        <li><a href="#" class="footer-link">Trending Now</a></li>
+                    </ul>
+                </div>
+
+                <!-- 3. Legal & Support -->
+                <div class="footer-column">
+                    <h3 class="footer-col-heading">
+                        <span class="heading-decoration"></span>Support
+                    </h3>
+                    <ul class="footer-link-list">
+                        <li><a href="#" class="footer-link">Help Center</a></li>
+                        <li><a href="#" class="footer-link">Partner with Us</a></li>
+                        <li><a href="#" class="footer-link">Privacy Policy</a></li>
+                        <li><a href="#" class="footer-link">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <!-- 4. Contact -->
+                <div class="footer-column">
+                    <div class="footer-contact-list">
+                        <h3 class="footer-col-heading">
+                            <span class="heading-decoration"></span>Contact Us
+                        </h3>
+                        <div class="footer-contact-list">
+                            <div class="contact-item">
+                                <div class="contact-icon-box">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <p class="contact-text">123 Culinary Ave, Paris</p>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon-box">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <p class="contact-text">hello@artisanbakery.com</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Socials -->
+                    <div class="footer-social-section">
+                        <p class="social-label">Follow us on social media</p>
+                        <div class="social-buttons">
+                            <a href="#" class="social-btn">
+                                <i class="fa-brands fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="social-btn">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                            <a href="#" class="social-btn">
+                                <i class="fa-brands fa-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="footer-bottom-bar">
+                <div class="footer-bottom-flex">
+                    <p class="copyright">
+                        &copy; 2025 ArtisanBakery Inc. All rights reserved.
+                    </p>
+                    <div class="made-with-block">
+                        <span>Made with</span>
+                        <i class="fa-solid fa-heart heart-icon"></i>
+                        <span>in Morocco</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!-- Success Modal -->
     <div id="success-modal" class="modal">
