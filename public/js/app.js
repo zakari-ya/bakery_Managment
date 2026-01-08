@@ -572,6 +572,38 @@ const app = {
   },
 };
 
+// PWA Install Logic
+let deferredPrompt;
+const installBtn = document.getElementById("install-btn");
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  if (installBtn) {
+    installBtn.classList.remove("hidden");
+    installBtn.addEventListener("click", () => {
+      installBtn.classList.add("hidden");
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === "accepted") {
+          console.log("User accepted the install prompt");
+        }
+        deferredPrompt = null;
+      });
+    });
+  }
+});
+
+// Service Worker Registration
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/sw.js")
+      .then((reg) => console.log("SW registered: ", reg))
+      .catch((err) => console.log("SW registration failed: ", err));
+  });
+}
+
 // Mobile Menu Toggle
 window.toggleMenu = () => {
   const navLinks = document.querySelector(".nav-links");
