@@ -246,10 +246,10 @@ const app = {
       const card = document.createElement("div");
       card.className = "card";
       card.innerHTML = `
-                <img src="${
-                  item.image_url ||
-                  "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&auto=format&fit=crop"
-                }" class="card-img" alt="${item.name}">
+                <img src="${app.getOptimizedImageUrl(
+                  item.image_url,
+                  600
+                )}" class="card-img" alt="${item.name}">
                 <button class="fav-btn ${
                   isFavView || app.state.favorites.includes(item.id)
                     ? "active"
@@ -559,6 +559,16 @@ const app = {
     } catch (err) {
       app.notify("Error", "Failed to rate");
     }
+  },
+  getOptimizedImageUrl: (url, width) => {
+    if (!url)
+      return "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&auto=format&fit=crop";
+    if (url.includes("images.unsplash.com")) {
+      // Check if it already has parameters
+      const separator = url.includes("?") ? "&" : "?";
+      return `${url}${separator}w=${width}&auto=format&fit=crop&q=80`;
+    }
+    return url;
   },
 };
 
