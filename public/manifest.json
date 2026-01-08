@@ -1,6 +1,6 @@
 {
-  "name": "Terminal Boulangerie",
-  "short_name": "Boulangerie",
+  "name": "Artisan Bakery",
+  "short_name": "Bakery",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#000000",
