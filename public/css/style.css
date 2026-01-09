@@ -828,7 +828,7 @@ body {
 
 .chat-window {
     position: absolute;
-    bottom: 67px;
+    bottom: 90px;
     right: 0;
     width: 350px;
     height: 500px;
@@ -954,7 +954,7 @@ body {
 @media (max-width: 480px) {
     .chat-window {
         width: calc(100vw - 40px);
-        bottom: 67px;
+        bottom: 70px;
         right: 0;
         height: 60vh;
     }
