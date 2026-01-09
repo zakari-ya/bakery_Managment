@@ -80,7 +80,13 @@
                         onclick="app.navigate('login'); closeMobileMenu()">Login</a></li>
                 <li class="auth-only hidden"><a href="#" class="btn-outline"
                         onclick="app.logout(); closeMobileMenu()">Logout</a></li>
+                <!-- PWA Install Button (Mobile Navbar) -->
+                <button id="install-btn-mobile" class="install-btn-mobile hidden">
+                    <i class="fa-solid fa-download"></i> Install
+                </button>
             </ul>
+
+
             <div class="hamburger" onclick="toggleMenu()">
                 <i class="fa-solid fa-bars"></i>
             </div>
@@ -332,11 +338,7 @@
                                 <i class="fa-brands fa-twitter"></i>
                             </a>
                         </div>
-                        <!-- PWA Install Button (Hidden by default) -->
-                        <button id="install-btn" class="hidden btn-outline"
-                            style="margin-top: 15px; border-color: var(--primary); color: var(--primary);">
-                            <i class="fa-solid fa-download"></i> Install App
-                        </button>
+
                     </div>
                 </div>
             </div>

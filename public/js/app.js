@@ -590,24 +590,47 @@ const app = {
 // PWA Install Logic
 let deferredPrompt;
 const installBtn = document.getElementById("install-btn");
+const installBtnMobile = document.getElementById("install-btn-mobile");
+
+const handleInstallClick = () => {
+  if (installBtn) installBtn.classList.add("hidden");
+  if (installBtnMobile) installBtnMobile.classList.add("hidden");
+
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === "accepted") {
+        console.log("User accepted the install prompt");
+      }
+      deferredPrompt = null;
+    });
+  }
+};
 
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredPrompt = e;
+
+  // Show both buttons
   if (installBtn) {
     installBtn.classList.remove("hidden");
-    installBtn.addEventListener("click", () => {
-      installBtn.classList.add("hidden");
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === "accepted") {
-          console.log("User accepted the install prompt");
-        }
-        deferredPrompt = null;
-      });
+    installBtn.addEventListener("click", handleInstallClick, { once: true });
+  }
+  if (installBtnMobile) {
+    installBtnMobile.classList.remove("hidden");
+    installBtnMobile.addEventListener("click", handleInstallClick, {
+      once: true,
     });
   }
 });
+
+// DEBUG: Simulate PWA event
+window.debugPWA = () => {
+  if (document.getElementById("install-btn-mobile")) {
+    console.log("Forcing mobile install button visible");
+    document.getElementById("install-btn-mobile").classList.remove("hidden");
+  }
+};
 
 // Service Worker Registration
 if ("serviceWorker" in navigator) {

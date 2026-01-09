@@ -203,6 +203,16 @@ body {
         margin: 20px 0;
         min-height: 300px;
     }
+
+    /* Show mobile-only items in mobile menu */
+    .mobile-only {
+        display: block;
+    }
+}
+
+/* Hide mobile-only items on desktop */
+.install-btn-mobile {
+    display: none;
 }
 
 /* Grid specific */
@@ -435,6 +445,34 @@ body {
 
     .filters {
         flex-direction: column;
+    }
+
+    /* Mobile Install Button Styles */
+    .install-btn-mobile {
+        width: 100%;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 1rem;
+        box-shadow: 0 4px 14px rgba(217, 119, 6, 0.3);
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .install-btn-mobile:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(217, 119, 6, 0.5);
+    }
+
+    .install-btn-mobile i {
+        font-size: 1.1rem;
     }
 }
 
