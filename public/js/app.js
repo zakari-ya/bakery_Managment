@@ -70,6 +70,21 @@ const app = {
       .querySelectorAll(".view")
       .forEach((el) => el.classList.add("hidden"));
 
+    // Handle Footer Visibility
+    const footer = document.querySelector(".site-footer");
+    console.log("Navigating to:", viewId, "Footer found:", !!footer);
+    if (footer) {
+      if (viewId === "favorites") {
+        console.log("Hiding footer for favorites page");
+        footer.classList.add("hidden");
+        footer.style.display = "none"; // Force hide
+      } else {
+        console.log("Showing footer for", viewId);
+        footer.classList.remove("hidden");
+        footer.style.display = ""; // Restore default
+      }
+    }
+
     // Handle views
     if (viewId === "dashboard") {
       document.getElementById("dashboard-view").classList.remove("hidden");

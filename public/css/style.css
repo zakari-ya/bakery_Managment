@@ -12,7 +12,6 @@
     --glass: rgba(18, 18, 18, 0.85);
     /* Darker frost */
     --gold-glow: 0 0 15px rgba(217, 119, 6, 0.4);
-    height: 1vh;
 }
 
 * {
@@ -61,6 +60,7 @@ body {
     color: #121212;
     /* Dark text for a11y contrast (was white) */
     box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+    margin: 12px;
 }
 
 .btn-primary:hover {
@@ -154,6 +154,7 @@ body {
     margin-bottom: 15px;
     background: linear-gradient(to right, #ffffff, #e2e8f0);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 800;
 }
@@ -192,16 +193,34 @@ body {
     .hero h1 {
         font-size: 2rem;
     }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .hero {
+        padding: 60px 15px;
+        margin: 20px 0;
+        min-height: 300px;
+    }
 }
 
 /* Grid specific */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 25px;
     margin-top: 30px;
 
-    /* Reduced CLS for grid */
+    /* Reduced CLS for grid - 280px for better small mobile support */
+}
+
+/* Tablet Specific - Grid Optimization */
+@media (min-width: 481px) and (max-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 20px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -349,6 +368,16 @@ body {
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
+/* Mobile Forms */
+@media (max-width: 768px) {
+
+    .auth-container,
+    .form-container {
+        padding: 30px 20px;
+        margin: 40px 15px;
+    }
+}
+
 .input-group label {
     display: block;
     margin-bottom: 8px;
@@ -433,12 +462,22 @@ body {
     align-items: center;
     gap: 12px;
     min-width: 300px;
+    max-width: 500px;
     border-left: 5px solid;
     pointer-events: auto;
 
     /* Animation */
     transform: translateX(120%);
     animation: slideIn 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+}
+
+/* Mobile Toast */
+@media (max-width: 480px) {
+    .toast {
+        min-width: 250px;
+        max-width: calc(100vw - 40px);
+        padding: 12px 18px;
+    }
 }
 
 .toast.slide-out {
@@ -524,6 +563,7 @@ body {
     display: flex;
     align-items: center;
     margin: 40px;
+    flex-wrap: wrap;
 }
 
 #page-info {
@@ -555,6 +595,27 @@ body {
 
 .pagination button:active {
     transform: translateY(0);
+}
+
+/* Mobile Pagination */
+@media (max-width: 768px) {
+    .pagination {
+        margin: 20px 10px;
+        gap: 10px;
+    }
+
+    .pagination button {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+
+    #page-info {
+        margin: 10px;
+        font-size: 0.9rem;
+        width: 100%;
+        text-align: center;
+        order: -1;
+    }
 }
 
 /* 3. Status Filter Dropdown */
@@ -729,7 +790,7 @@ body {
 
 .chat-window {
     position: absolute;
-    bottom: 80px;
+    bottom: 67px;
     right: 0;
     width: 350px;
     height: 500px;
@@ -855,7 +916,7 @@ body {
 @media (max-width: 480px) {
     .chat-window {
         width: calc(100vw - 40px);
-        bottom: 90px;
+        bottom: 67px;
         right: 0;
         height: 60vh;
     }
@@ -871,9 +932,14 @@ body {
 
 #favorites-view {
     margin-top: 12px;
-    min-height: 60vh;
-    /* Changed from height: 90vh to allow growth */
-    padding-bottom: 20px;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    #favorites-view {
+        /* Keep some margin for mobile safety, but reduced */
+        margin-bottom: 60px;
+    }
 }
 
 /* --- Footer Refactor Styles --- */
@@ -887,6 +953,15 @@ body {
     z-index: 10;
     font-family: 'Outfit', sans-serif;
     overflow: hidden;
+}
+
+/* Mobile Footer Spacing */
+@media (max-width: 768px) {
+    .site-footer {
+        margin-top: 3rem;
+        padding-top: 2.5rem;
+        padding-bottom: 1.5rem;
+    }
 }
 
 .footer-decor-line {
